@@ -134,11 +134,11 @@ int main()
 	std::string command;
 	int value;
 
-	while (true)
-	{
-		std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
-		std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
+	std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
+	std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
+	while (!terminateThread)
+	{
 		std::cout << "type 'help' for commands > ";
 		std::cin >> command;
 		if (command == "leftKey")
@@ -216,20 +216,15 @@ int main()
 		}
 		else if (command == "quit")
 		{
-			terminateThread = true;
-			leftThread.join();
-			rightThread.join();
 			break;
 		}
 		else
 		{
 			std::cout << "'" << command << "' is not recognized\n";
 		}
-
-		terminateThread = true;
-		leftThread.join();
-		rightThread.join();
-		terminateThread = false;
 	}
+	terminateThread = true;
+	leftThread.join();
+	rightThread.join();
 	return EXIT_SUCCESS;
 }
