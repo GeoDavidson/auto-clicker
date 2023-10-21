@@ -137,7 +137,7 @@ int main()
 	std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
 	std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
-	while (!terminateThread)
+	while (true)
 	{
 		std::cout << "type 'help' for commands > ";
 		std::cin >> command;
