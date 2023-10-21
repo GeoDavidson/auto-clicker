@@ -1,0 +1,11 @@
+-left click settings-
+leftKey=88
+leftClickDelay=100
+leftRandomOffset=50
+leftHoldTime=0
+
+-right click settings-
+rightKey=4
+rightClickDelay=100
+rightRandomOffset=50
+rightHoldTime=0
