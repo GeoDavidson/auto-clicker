@@ -69,76 +69,17 @@ void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int 
 	}
 }
 
-void loadFile()
-{
-	std::ifstream file("settings.txt");
-	std::string line;
-
-	if (file.is_open())
-	{
-		while (std::getline(file, line))
-		{
-			size_t equal = line.find('=');
-
-			if (equal != std::string::npos)
-			{
-				std::string key = line.substr(0, equal);
-				std::string value = line.substr(equal + 1);
-
-				if (key == "leftKey")
-				{
-					leftKey = std::stoi(value);
-				}
-				else if (key == "leftClickDelay")
-				{
-					leftClickDelay = std::stoi(value);
-				}
-				else if (key == "leftRandomOffset")
-				{
-					leftRandomOffset = std::stoi(value);
-				}
-				else if (key == "leftHoldTime")
-				{
-					leftHoldTime = std::stoi(value);
-				}
-				else if (key == "rightKey")
-				{
-					rightKey = std::stoi(value);
-				}
-				else if (key == "rightClickDelay")
-				{
-					rightClickDelay = std::stoi(value);
-				}
-				else if (key == "rightRandomOffset")
-				{
-					rightRandomOffset = std::stoi(value);
-				}
-				else if (key == "rightHoldTime")
-				{
-					rightHoldTime = std::stoi(value);
-				}
-			}
-		}
-		file.close();
-	}
-	else
-	{
-		std::cout << "error: unable to open file\n";
-	}
-}
-
 int main()
 {
-	loadFile();
 	srand(time(0));
 	std::string command;
 	int value;
 
-	std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
-	std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
-
 	while (true)
 	{
+		std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
+		std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
+
 		std::cout << "type 'help' for commands > ";
 		std::cin >> command;
 		if (command == "leftKey")
@@ -216,15 +157,19 @@ int main()
 		}
 		else if (command == "quit")
 		{
+			terminateThread = true;
+			leftThread.join();
+			rightThread.join();
 			break;
 		}
 		else
 		{
 			std::cout << "'" << command << "' is not recognized\n";
 		}
+		terminateThread = true;
+		leftThread.join();
+		rightThread.join();
+		terminateThread = false;
 	}
-	terminateThread = true;
-	leftThread.join();
-	rightThread.join();
 	return EXIT_SUCCESS;
 }
