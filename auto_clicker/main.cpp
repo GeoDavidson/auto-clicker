@@ -18,7 +18,6 @@ int rightClickDelay = 100;
 int rightRandomOffset = 50;
 int rightHoldTime = 0;
 
-std::string keyCodes{table};
 bool terminateThread = false;
 
 void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int leftHoldTime)
@@ -72,104 +71,18 @@ void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int 
 int main()
 {
 	srand(time(0));
-	std::string command;
-	int value;
 
-	while (true)
+	while (!terminateThread)
 	{
 		std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
 		std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
+		
+		std::cout << "press enter to exit...";
+		std::cin.ignore();
 
-		std::cout << "type 'help' for commands > ";
-		std::cin >> command;
-		if (command == "leftKey")
-		{
-			std::cout << "leftKey = ";
-			std::cin >> value;
-			std::cout << "you have set leftKey = " << value << "\n";
-			leftKey = value;
-		}
-		else if (command == "leftClickDelay")
-		{
-			std::cout << "leftClickDelay = ";
-			std::cin >> value;
-			std::cout << "you have set leftClickDelay = " << value << " milliseconds\n";
-			leftClickDelay = value;
-		}
-		else if (command == "leftRandomOffset")
-		{
-			std::cout << "leftRandomOffset = ";
-			std::cin >> value;
-			std::cout << "you have set leftRandomOffset = " << value << " milliseconds\n";
-			leftRandomOffset = value;
-		}
-		else if (command == "leftHoldTime")
-		{
-			std::cout << "leftHoldTime = ";
-			std::cin >> value;
-			std::cout << "you have set leftHoldTime = " << value << " milliseconds\n";
-			leftHoldTime = value;
-		}
-		else if (command == "rightKey")
-		{
-			std::cout << "rightKey = ";
-			std::cin >> value;
-			std::cout << "you have set rightKey = " << value << "\n";
-			rightKey = value;
-		}
-		else if (command == "rightClickDelay")
-		{
-			std::cout << "rightClickDelay = ";
-			std::cin >> value;
-			std::cout << "you have set rightClickDelay = " << value << " milliseconds\n";
-			rightClickDelay = value;
-		}
-		else if (command == "rightRandomOffset")
-		{
-			std::cout << "rightRandomOffset = ";
-			std::cin >> value;
-			std::cout << "you have set rightRandomOffset = " << value << " milliseconds\n";
-			rightRandomOffset = value;
-		}
-		else if (command == "rightHoldTime")
-		{
-			std::cout << "rightHoldTime = ";
-			std::cin >> value;
-			std::cout << "you have set rightHoldTime = " << value << " milliseconds\n";
-			rightHoldTime = value;
-		}
-		else if (command == "list")
-		{
-			std::cout << keyCodes;
-		}
-		else if (command == "help")
-		{
-			std::cout << "'leftKey'           - change keybind for left click\n";
-			std::cout << "'leftClickDelay'    - change left click delay in milliseconds\n";
-			std::cout << "'leftRandomOffset'  - change the amount of random offset applied to the left click\n";
-			std::cout << "'leftHoldTime'      - change how long the left mouse button is pressed and released\n";
-			std::cout << "'rightKey'          - change keybind for right click\n";
-			std::cout << "'rightClickDelay'   - change right click delay in milliseconds\n";
-			std::cout << "'rightRandomOffset' - change the amount of random offset applied to the right click\n";
-			std::cout << "'rightHoldTime'     - change how long the right mouse button is pressed and released\n";
-			std::cout << "'list'              - list all the key codes and descriptions\n";
-			std::cout << "'quit'              - quit the program\n";
-		}
-		else if (command == "quit")
-		{
-			terminateThread = true;
-			leftThread.join();
-			rightThread.join();
-			break;
-		}
-		else
-		{
-			std::cout << "'" << command << "' is not recognized\n";
-		}
 		terminateThread = true;
 		leftThread.join();
 		rightThread.join();
-		terminateThread = false;
 	}
 	return EXIT_SUCCESS;
 }
