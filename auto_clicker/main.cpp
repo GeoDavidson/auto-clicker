@@ -8,12 +8,12 @@
 
 #include "key_codes.hpp"
 
-int leftKey = 88;
+int leftKey = key_x;
 int leftClickDelay = 100;
 int leftRandomOffset = 50;
 int leftHoldTime = 0;
 
-int rightKey = 4;
+int rightKey = mouse_middle;
 int rightClickDelay = 100;
 int rightRandomOffset = 50;
 int rightHoldTime = 0;
