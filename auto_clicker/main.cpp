@@ -3,7 +3,6 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <thread>
 
 int leftKey = key_x;
@@ -18,20 +17,16 @@ int rightHoldTime = 0;
 
 bool terminateThread = false;
 
-void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int leftHoldTime)
-{
+void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int leftHoldTime) {
     int leftAddedOffset = leftClickDelay + leftRandomOffset;
     int leftSubtractedOffset = leftClickDelay - leftRandomOffset;
 
-    if (leftSubtractedOffset < 1)
-    {
+    if (leftSubtractedOffset < 1) {
         leftSubtractedOffset = 1;
     }
 
-    while (!terminateThread)
-    {
-        if (GetKeyState(leftKey))
-        {
+    while (!terminateThread) {
+        if (GetKeyState(leftKey)) {
             int leftOffset = leftAddedOffset - leftSubtractedOffset;
             int randomNumber = rand() % leftOffset + leftSubtractedOffset;
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
@@ -42,20 +37,16 @@ void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int left
     }
 }
 
-void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int rightHoldTime)
-{
+void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int rightHoldTime) {
     int rightAddedOffset = rightClickDelay + rightRandomOffset;
     int rightSubtractedOffset = rightClickDelay - rightRandomOffset;
 
-    if (rightSubtractedOffset < 1)
-    {
+    if (rightSubtractedOffset < 1) {
         rightSubtractedOffset = 1;
     }
 
-    while (!terminateThread)
-    {
-        if (GetKeyState(rightKey))
-        {
+    while (!terminateThread) {
+        if (GetKeyState(rightKey)) {
             int rightOffset = rightAddedOffset - rightSubtractedOffset;
             int randomNumber = rand() % rightOffset + rightSubtractedOffset;
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
@@ -66,12 +57,10 @@ void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int 
     }
 }
 
-int main()
-{
+int main() {
     srand(time(0));
 
-    while (!terminateThread)
-    {
+    while (!terminateThread) {
         std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
         std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
