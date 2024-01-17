@@ -1,4 +1,4 @@
-#include "key_codes.hpp"
+#include "key-codes.hpp"
 #include <Windows.h>
 #include <ctime>
 #include <fstream>
@@ -64,7 +64,7 @@ int main() {
         std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
         std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
-        std::cout << "press enter to exit...";
+        std::cout << ">>> ";
         std::cin.ignore();
 
         terminateThread = true;
