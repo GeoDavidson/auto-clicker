@@ -7,14 +7,14 @@
 
 #include "key-codes.hpp"
 
-int leftKey = key_x;
-int leftClickDelay = 100;
-int leftRandomOffset = 50;
+int leftKey = mouse_middle;
+int leftClickDelay = 90;
+int leftRandomOffset = 40;
 int leftHoldTime = 0;
 
-int rightKey = mouse_middle;
-int rightClickDelay = 100;
-int rightRandomOffset = 50;
+int rightKey = none;
+int rightClickDelay = 90;
+int rightRandomOffset = 40;
 int rightHoldTime = 0;
 
 bool terminateThread = false;
@@ -66,7 +66,7 @@ int main() {
         std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
         std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
-        std::cout << ">>> ";
+        std::cout << "press enter to quit...";
         std::cin.ignore();
 
         terminateThread = true;

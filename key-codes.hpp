@@ -1,3 +1,4 @@
+const unsigned int none = 0;
 // const unsigned int mouse_left = 1;
 // const unsigned int mouse_right = 2;
 const unsigned int mouse_middle = 4;
