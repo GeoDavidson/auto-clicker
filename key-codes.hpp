@@ -1,5 +1,5 @@
-//const unsigned int mouse_left = 1;
-//const unsigned int mouse_right = 2;
+// const unsigned int mouse_left = 1;
+// const unsigned int mouse_right = 2;
 const unsigned int mouse_middle = 4;
 const unsigned int mouse_x1 = 5;
 const unsigned int mouse_x2 = 6;

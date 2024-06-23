@@ -1,9 +1,11 @@
-#include "key-codes.hpp"
-#include <Windows.h>
 #include <ctime>
 #include <fstream>
 #include <iostream>
 #include <thread>
+
+#include <Windows.h>
+
+#include "key-codes.hpp"
 
 int leftKey = key_x;
 int leftClickDelay = 100;
